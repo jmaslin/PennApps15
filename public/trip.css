@@ -8,19 +8,36 @@ img {
 
 #top {
 	margin-bottom: 2em;
-	border: 1px solid gray;
+	/*border: 1px solid gray;*/
+}
+
+#tripBodyTop {
+	margin-top: 1.25em;
+	margin-bottom: 1em;
 }
 
 #tripSide {
-	border: 1px solid gray;
+	/*border: 1px solid gray;*/
 	padding-right: 2em;
 }
 
+#tripSideTop {
+	margin-bottom: 1.5em;
+}
+
 #tripBody {
-	border: 1px solid gray;
+	/*border: 1px solid gray;*/
 
 }
 
+.tripDay {
+	margin-bottom: 1.5em;
+}
+
 .tripModule {
+	/*border: 1px solid gray;*/
+
 	margin-bottom: 2em;
+	display: block;
+	width: 100%;
 }

@@ -9,12 +9,13 @@
 		<!-- JS -->
 		<script src="/public/components/jquery/dist/jquery.min.js"></script>
 		<script src="/public/components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 	</head>
 	<body>
-		<div class="container">
+		<div class="container-fluid">
 			<!-- TOP START -->
 			<div class="row">
-				<div id="top" class="col-sm-8 col-sm-offset-2">
+				<div id="top" class="col-sm-12">
 					<h2>Welcome to your trip! <small>Begins on 20th January 2015</small></h2>
 
 				</div>
@@ -25,37 +26,49 @@
 			<div class="row">
 				<!-- SIDE START -->
 				<div id="tripSide" class="col-sm-4">
-					<div class="tripModule row text-center">
-						<div class="col-sm-2">
-							<div id="tripModuleDate">20th Jan</div>
-						</div>
-						<div class="col-sm-3">
-							<img src="/public/lodge-example.png" class="img img-responsive">
-						</div>
-						<div class="col-sm-7">
-							<p><strong><span id="tripModuleTitle">The Holiday Inn</span></strong></p>
-							<p>5 Stars - 96 Reviews</p>
-							<p><em>Note:</em> Check-in begins at 5pm.</p>
+					<div id="tripSideTop">
+						<h3><strong>Itinerary</strong></h3>
+					</div>
+					<div class="tripDay">
+						<h4><hr><span class="tripDayTitle">Friday, January 20th</span><hr></h4>
+						<div class="tripModule row text-center">
+							<div class="col-sm-3">
+								<img src="/public/lodge-example.png" class="img img-responsive">
+							</div>
+							<div class="col-sm-7">
+								<p><strong><span id="tripModuleTitle">The Holiday Inn</span></strong></p>
+								<p>5 Stars - 96 Reviews</p>
+								<p><em>Note:</em> Check-in begins at 5pm.</p>
+							</div>
 						</div>
 					</div>
-					<div class="tripModule row text-center">
-						<div class="col-sm-2">
-							<div id="tripModuleDate">24th Jan</div>
+					<div class="tripDay">
+						<h4><hr><span class="tripDayTitle">Sunday, January 22th</span><hr></h4>
+						<div class="tripModule row text-center">
+							<div class="col-sm-3">
+								<img src="/public/lodge-example.png" class="img img-responsive">
+							</div>
+							<div class="col-sm-7">
+								<p><strong><span id="tripModuleTitle">The Holiday Inn</span></strong></p>
+								<p>5 Stars - 96 Reviews</p>
+								<p><em>Note:</em> Check-in begins at 5pm.</p>
+							</div>
 						</div>
-						<div class="col-sm-3">
-							<img src="/public/lodge-example.png" class="img img-responsive">
-						</div>
-						<div class="col-sm-7">
-							<p><strong><span id="tripModuleTitle">The Holiday Inn</span></strong></p>
-							<p>5 Stars - 96 Reviews</p>
-						</div>
-					</div>
+					</div>					
+
 				</div>
 				<!-- SIDE END -->
 
 				<!-- MAIN START -->
-				<div id="tripBody" class="col-sm-7">
-
+				<div id="tripBody" class="col-sm-8">
+					<div id="tripBodyTop">
+						<!-- <p class="lead">Feel free to edit your trip</p> -->
+						<ul class="nav nav-pills">
+							<li role="presentation" class="active"><a href="#view">Trip View</a></li>
+							<li role="presentation"><a href="#edit">Edit Mode</a></li>
+						</ul>	
+					</div>
+					<img class="img img-responsive" src="/public/bigmap-example.jpg">
 				</div>
 				<!-- MAIN END -->
 			</div>
@@ -66,6 +79,12 @@
 </html>
 
 <script type="text/javascript">
+
+	$( document ).ready(function() {
+
+
+		console.log("Hey you be ready to go trippin'");
+	});
 
 
 </script>
