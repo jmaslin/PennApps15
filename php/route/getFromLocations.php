@@ -3,7 +3,7 @@ require_once('../lib/gmaps.php');
 //gets a route from a location
 
 $fromLoc = isset($_REQUEST['from']) ? $_REQUEST['from'] : 'Philadelphia';;
-$toLoc = isset($_REQUEST['to']) ? $_REQUEST['to'] : 'New York';
+$toLoc = isset($_REQUEST['to']) ? $_REQUEST['to'] : 'California';
 
 $response = [
 	'error' => "",
