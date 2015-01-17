@@ -1,5 +1,8 @@
 body {
 	font-size: 150%;
+	top: 0;
+	/*background-image: url("/public/grey_wash_wall_@2X.png");*/
+	/*background-repeat: repeat-y;*/
 }
 
 img {
@@ -7,8 +10,14 @@ img {
 }
 
 #top {
-	margin-bottom: 2em;
+	margin-bottom: 1em;
+	/*position: static;*/
 	/*border: 1px solid gray;*/
+}
+
+.fixed {
+	position: fixed;
+	top: 0;
 }
 
 #tripBodyTop {
@@ -22,22 +31,55 @@ img {
 }
 
 #tripSideTop {
-	margin-bottom: 1.5em;
+	/*margin-bottom: 2em;*/
+	padding-bottom: 2em;
+	/*position: relative;*/
+	/*border: 1px solid gray;*/
+	/*top: 140px;*/
 }
 
 #tripBody {
 	/*border: 1px solid gray;*/
+	/*position: relative;*/
+	position: fixed;
+}
 
+#tripBodyTop {
+	/*position: fixed;*/
+}
+
+#tripMap {
+	margin-top: 1em;
+	position: relative;
+}
+
+#tripMap > * {
+	position: static;
 }
 
 .tripDay {
-	margin-bottom: 1.5em;
+	margin-bottom: 1em;
 }
 
 .tripModule {
-	/*border: 1px solid gray;*/
+	border: 0px solid gray;
 
 	margin-bottom: 2em;
+	margin-left: 0.5em;
 	display: block;
-	width: 100%;
+	width: 95%;
+
+	background-color: white;
+
+	-webkit-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
+}
+
+.tripModuleImg {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	/*width: 80%;*/
+	height: auto;
 }
