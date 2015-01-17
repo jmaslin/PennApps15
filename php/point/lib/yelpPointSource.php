@@ -1,0 +1,7 @@
+<?
+class yelpPointSource extends pointSource{
+
+
+
+}
+?>
