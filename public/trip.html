@@ -38,24 +38,30 @@
 				<div id="tripSide" class="col-sm-4">
 
 					<div id="top" class="row">
-						<h2>
-							<span id="beginMessage">Welcome to your trip to</span>
-							<span class="text-primary" id="tripDestination">New York City</span>!
-						</h2>
-						<p class="dates lead">
-							<span id="startTextDates">You leave on</span>  
-							<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual" title="Calendar"><span id="tripFromDate">Friday, January 20th 2015</span></button>
-							<span id="midTextDates">and return</span> 
-							<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual" title="Calendar"><span id="tripToDate">Sunday, January 27th 2015</span></button>.
-						</p>
-						<!-- <a href="/"><button type="button" class="btn btn-sm btn-info">Back</button></a> -->
+						<div class="col-sm-12">
+							<h2>
+								<span id="beginMessage">Have fun on your trip to </span>
+								<span class="text-primary" id="tripDestination">New York City</span>!
+							</h2>
+							<p class="lead">
+								<span id="startTextDates">You leave on</span>  
+								<!-- <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual" title="Calendar"> --><span id="tripFromDate" class="text-info">Friday, January 20th 2015</span><!-- </button> -->
+								<span id="midTextDates">and return</span> 
+								<!-- <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual" title="Calendar"> --><span id="tripToDate" class="text-info">Sunday, January 27th 2015</span><!-- </button> -->.
+							</p>
+							<!-- <a href="/"><button type="button" class="btn btn-sm btn-info">Back</button></a> -->
+						</div>
 					</div>
 
 					<div id="tripSideTop" class="row">
-						<h3><strong>Itinerary</strong></h3>
+						<div class="col-sm-12">
+							<h3><strong>Itinerary</strong>
+								<button data-toggle="modal" href="#editTripModal" class="btn btn-sm btn-warning">Edit Trip Details</button>
+							</h3>
+						</div>
 					</div>
 
-					<div class="row tripDay">
+					<div class="row tripDay col-sm-12">
 						<h4><hr><span class="tripDayTitle">Friday, January 20th 2015</span><hr></h4>
 						<div class="tripModule row text-center">
 								<img src="/public/hotel-example.jpg" class="img img-responsive tripModuleImg">
@@ -108,8 +114,9 @@
 				<div id="tripBody" class="col-sm-8 col-sm-offset-4">
 					<div id="tripBodyTop" class="row">
 						<ul class="nav nav-pills">
-							<li role="presentation" class="active"><a href="#view">Trip View</a></li>
-							<li role="presentation"><a data-toggle="modal" href="#editTripModal">Edit Mode</a></li>
+							<li role="presentation" class="active"><a href="#view">Overview</a></li>
+							<!-- <li role="presentation" class="active"><a href="#view">Overview</a></li> -->
+							<!-- <li role="presentation"><a data-toggle="modal" href="#editTripModal">Edit Mode</a></li> -->
 						</ul>	
 					</div>
 					<div id="tripMap" class="row">
@@ -123,26 +130,31 @@
 		</div>
 
 		<div class="modal fade" id="editTripModal" tabindex="-1" role="dialog" aria-labelledby="editTrip" aria-hidden="true">
-		  <div class="modal-dialog">
+		  <div class="modal-dialog modal-lg">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title" id="myModalLabel">Edit Trip</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<div class="row">
-		      		<div class="col-sm-2">
-			      		<button type="button" id="editDates" class="btn btn-info">Edit Dates</button>
+			      <form id="datesForm" class="form-inline">
+			      	<div class="row">
+			      		<div id="modalButtons" class="col-sm-2">
+				      		<button type="button" id="editDates" class="btn btn-info">Edit Dates</button>
+				      		<button type="button" id="saveDates" class="btn btn-success">Save Dates</button>
+				      	</div>
+				      	<div class="col-sm-5">
+				      		<div class="form-group">
+				      			<input id="startDate" type="text" class="form-control" placeholder="Modify Start" autocomplete="off">
+				      		</div>
+				      	</div>
+				      	<div class="col-sm-5">
+				      		<div class="form-group">
+				      			<input id="endDate" type="text" class="form-control" placeholder="Modify End" autocomplete="off">
+				      		</div>
+			      		</div>
 			      	</div>
-			      	<form id="datesForm">
-			      		<div class="col-sm-5 form-group">
-			      			<input id="startDate" type="text" class="form-control" placeholder="Modify Start" autocomplete="off">
-			      		</div>
-			      		<div class="col-sm-5 form-group">
-			      			<input id="endDate" type="text" class="form-control" placeholder="Modify End" placeholder="off">
-			      		</div>
-			      	</form>
-			      </div>
+			      </form>
 			      <div class="row">
 			      	<hr>
 			      </div>
@@ -177,13 +189,9 @@
   	dayClick: function(date, jsEvent, view) {
 
   		formatDate = String(date.format('dddd, MMM Do YYYY'));
-
-  		// eval(inputClicked + ' = ' + String(date.format('YYYY-MM-DD')));
-
-  		console.log(startDate);
-
-  		// $('#'+inputClicked).val(formatDate);
   		$('#'+inputClicked).attr('placeholder', formatDate);
+
+  		// TODO: Hidden form fields that save date formatted in YYYY-MM-DD.
   	},
   	// selectable: true,
   	// select: function(start, end, jsEvent, view) {
@@ -207,25 +215,38 @@
 		$('#tripMap').hide();
 		$('#tripMap').fadeIn('slow');
 
-		getItinerary();
+		// getItinerary();
    	// $('#calendar').fullCalendar('render');
    	$('#calendar').hide();
-   	$('form#datesForm').hide();
+   	$('form .form-group').hide();
+   	$('#saveDates').hide();
 
 		console.log("Hey you be ready to go trippin'");
 	});
 
 	// EDIT TRIP MODAL
-	$('#editTripModal').on('shown.bs.modal', function () {
+	// $('#editTripModal').on('shown.bs.modal', function () {
 
-
-	});
+	// 	// $('#calendar').hide(function() {
+ //  // 	 	$(this).fullCalendar('render');			
+	// 	// });
+	// });
 
 	$('#editDates').on('click', function() {
-		$('#calendar').fadeToggle(function() {
+		$('#calendar').slideDown(function() {
   	 	$(this).fullCalendar('render');			
 		});
-		$('form#datesForm').slideDown();
+		$('#editDates').slideUp('fast', function() {
+			$('#saveDates').slideDown('fast');
+			$('form .form-group').fadeToggle();
+		})
+	});
+	$('#saveDates').on('click', function() {
+		$('#calendar').slideUp('fast');
+		$('#saveDates').slideUp('fast', function() {
+			$('#editDates').slideDown('fast');
+			$('form .form-group').fadeToggle();
+		})
 	});
 
 	$('form#datesForm input').on('focus', function() {
@@ -243,9 +264,16 @@
 	// 	// console.log($(this).scrollTop());
 	// });
 
-
-
 	function getItinerary() {
+
+		$.ajax({
+			dataType: 'json',
+			url: '/public/test/getdata.php',
+			data: 'data',
+			success: function(data) {
+
+			}
+		});
 
 
 	}

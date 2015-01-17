@@ -11,6 +11,7 @@ img {
 
 #top {
 	margin-bottom: 1em;
+	/*margin-left: 1em;*/
 	/*position: static;*/
 	/*border: 1px solid gray;*/
 }
@@ -30,13 +31,6 @@ img {
 	padding-right: 2em;
 }
 
-#tripSideTop {
-	/*margin-bottom: 2em;*/
-	padding-bottom: 2em;
-	/*position: relative;*/
-	/*border: 1px solid gray;*/
-	/*top: 140px;*/
-}
 
 #tripBody {
 	/*border: 1px solid gray;*/
@@ -82,4 +76,8 @@ img {
 	text-align: center;
 	/*width: 80%;*/
 	height: auto;
+}
+
+#modalButtons > button {
+	width: 120%;
 }
