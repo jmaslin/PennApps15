@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>Trip</title>
+		<!-- CSS -->
+		<link href="/public/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="/public/home.css" rel="stylesheet" media="screen">
+		<!-- JS -->
+		<script src="/public/components/jquery/dist/jquery.min.js"></script>
+		<script src="/public/components/bootstrap/dist/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row col-sm-8 col-sm-offset-2 text-center">
+				<div id="top">
+					<h1>What are you waiting for?</h1>
+					<h2>Start planning your trip today.</h2>
+				</div>
+			</div>
+
+			<div class="row col-sm-6 col-sm-offset-3 text-center">
+				<div id="searchFormContainer">
+					<form id="search">
+						<div class="form-group">
+							<!-- TODO: API should detect location from this, grab map -->
+							<input id="to" class="form-control" placeholder="Enter a destination" autocomplete="off">
+						</div>
+						<div class="form-group">
+							<input id="from" class="form-control" placeholder="Where are you starting from" autocomplete="off">
+						</div>
+						<button id="submitTrip" type="button" class="btn btn-lg btn-success">Plan Trip</button>
+					</form>
+				</div>
+
+				<img id="toImage" class="img img-responsive" src="/public/nycmap-example.png">
+
+			</div>
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+
+	$( document ).ready(function() {
+		$('#toImage').hide();
+		$('#from').hide();
+		$('#submitTrip').attr('disabled', true);
+		$('#submitTrip').fadeTo(0, 0.5);
+		$('#submitTrip').hide();
+		console.log("Loaded");
+	});
+
+	$('#to').on('click', function() {
+		$('#toImage').fadeIn();
+	});
+
+	// TODO: The "FROM" slides down when "TO" is done.
+	$('#to').keypress(function() {
+		$('#from').slideDown('slow');
+		$('#submitTrip').slideDown('slow');
+		$(this).focus();
+	});
+
+	$('#from').keypress(function() {
+		$('#submitTrip').fadeTo("slow", 1, function() {
+			$(this).attr('disabled', false);
+		})
+		$(this).focus();
+	});
+
+</script>
