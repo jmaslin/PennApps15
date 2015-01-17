@@ -1,5 +1,5 @@
 <?
-include('../lib/basicHTTPRequest.php');
+require_once('../lib/basicHTTPRequest.php');
 //gets a route from a location
 
 $fromLoc = isset($_REQUEST['from']) ? $_REQUEST['from'] : false;
@@ -12,7 +12,8 @@ $response = [
 ];
 
 //write a function that echoes a json-encoded error array
-echo request("google.com");
+$response = request("http://google.com");
+echo $response;
 
 //write a function to make a GET request to google taking params (to,from)
 
