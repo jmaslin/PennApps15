@@ -6,16 +6,16 @@ class gmaps{
 
 	//gets a route from a location
 
-	private buildResponse($data){
+	private function buildResponse($data){
 		$response = [
 	        	'error' => "",
 	        	'success' => false,
-		        'data' => data == false ? (is_array($data) ? $data : [$data] )  : [] ; 
+		        'data' => (data === false ? (is_array($data) ? $data : array($data) )  : array())  
 		];
 	}
 
-	public getRouteFromLocations($from,$to){
-		$response = json_decode(request("https://maps.googleapis.com/maps/api/directions/json?origin=$from&destination=$to&key=$API_KEY"););
+	public function getRouteFromLocations($from,$to){
+		$response = json_decode(request("https://maps.googleapis.com/maps/api/directions/json?origin=$from&destination=$to&key=$API_KEY"));
 		return $response;
 	}
 
