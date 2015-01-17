@@ -1,0 +1,43 @@
+body {
+	font-size: 150%;
+}
+
+#top {
+	margin-bottom: 3em;
+}
+
+#submitTrip {
+	width: 100%;
+	margin-bottom: 2em;
+}
+
+/*
+ * PLACEHOLDER TEXT
+ * SOURCE: http://coolestguidesontheplanet.com/
+ */
+
+::-webkit-input-placeholder {
+	font-size: 1.25em;
+	color: #d0cdfa;
+	text-align: center;
+	font-weight: bold;
+}
+:-moz-placeholder { /* older Firefox*/
+	font-size: 1.25em;
+	color: #d0cdfa;
+	text-align: center;
+	font-weight: bold;
+}
+::-moz-placeholder { /* Firefox 19+ */
+	font-size: 1.25em;
+	color: #d0cdfa;
+	text-align: center;
+	font-weight: bold;
+}
+:-ms-input-placeholder {
+	font-size: 1.25em;
+	color: #d0cdfa;
+	text-align: center;
+	font-weight: bold;
+}
+
