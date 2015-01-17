@@ -1,0 +1,26 @@
+body {
+	font-size: 150%;
+}
+
+img {
+	vertical-align: middle;
+}
+
+#top {
+	margin-bottom: 2em;
+	border: 1px solid gray;
+}
+
+#tripSide {
+	border: 1px solid gray;
+	padding-right: 2em;
+}
+
+#tripBody {
+	border: 1px solid gray;
+
+}
+
+.tripModule {
+	margin-bottom: 2em;
+}
