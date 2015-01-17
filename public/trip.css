@@ -35,20 +35,27 @@ img {
 #tripBody {
 	/*border: 1px solid gray;*/
 	/*position: relative;*/
-	position: fixed;
+	position: absolute;
 }
 
 #tripBodyTop {
-	/*position: fixed;*/
+	position: fixed;
+}
+
+#tripMap, #tripBody {
+	/*margin-top: 1em;*/
+	/*width: 100%;*/
+	height: 100%;
+	/*position: relative;*/
+
 }
 
 #tripMap {
-	margin-top: 1em;
-	position: relative;
+	/*position: fixed;*/
 }
 
 #tripMap > * {
-	position: static;
+	position: relative;
 }
 
 .tripDay {

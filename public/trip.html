@@ -8,11 +8,17 @@
 		<link href="/public/components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" media="screen">
 
 		<link href="/public/trip.css" rel="stylesheet" media="screen">
+		<link href="/public/map.css" rel="stylesheet" media="screen">
+
 		<!-- JS -->
 		<script src="/public/components/jquery/dist/jquery.min.js"></script>
 		<script src="/public/components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="/public/components/moment/min/moment.min.js"></script>
 		<script src="/public/components/fullcalendar/dist/fullcalendar.min.js"></script>
+
+		<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYciGKuGqG10zrJs4ZrTWkHVkd0nhMu6k">
+    </script>
 
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 	</head>
@@ -120,7 +126,8 @@
 						</ul>	
 					</div>
 					<div id="tripMap" class="row">
-						<img class="img img-responsive" src="/public/bigmap-example.jpg">
+						<div id="map-canvas"></div>
+						<!-- <img src="/public/bigmap-example.jpg"> -->
 					</div>
 				</div>
 				<!-- MAIN END -->
@@ -129,6 +136,7 @@
 
 		</div>
 
+		<!-- EDIT TRIP MODAL -->
 		<div class="modal fade" id="editTripModal" tabindex="-1" role="dialog" aria-labelledby="editTrip" aria-hidden="true">
 		  <div class="modal-dialog modal-lg">
 		    <div class="modal-content">
@@ -171,9 +179,25 @@
 		    </div>
 		  </div>
 		</div>
+		<!-- EDIT TRIP MODAL END -->
 
 	</body>
 </html>
+
+<script type="text/javascript">
+	function initialize() {
+	  var mapOptions = {
+	    center: { lat: -34.397, lng: 150.644},
+	    zoom: 8
+	  };
+	  var map = new google.maps.Map(document.getElementById('map-canvas'),
+	      mapOptions);
+	}
+	
+	google.maps.event.addDomListener(window, 'load', initialize);
+	console.log("Init map.");
+</script>
+
 
 <script type="text/javascript">
 
