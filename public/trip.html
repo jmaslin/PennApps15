@@ -44,11 +44,10 @@
 						</h2>
 						<p class="dates lead">
 							<span id="startTextDates">You leave on</span>  
-							<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="bottom" title="Calendar"><span id="tripFromDate">Fri, January 20th</span></button>
+							<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual" title="Calendar"><span id="tripFromDate">Friday, January 20th 2015</span></button>
 							<span id="midTextDates">and return</span> 
-							<span id="tripToDate" class="text-info">Sun, January 27th</span>.
+							<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual" title="Calendar"><span id="tripToDate">Sunday, January 27th 2015</span></button>.
 						</p>
-					<div id="calendar"></div>
 						<!-- <a href="/"><button type="button" class="btn btn-sm btn-info">Back</button></a> -->
 					</div>
 
@@ -57,7 +56,7 @@
 					</div>
 
 					<div class="row tripDay">
-						<h4><hr><span class="tripDayTitle">Friday, January 20th</span><hr></h4>
+						<h4><hr><span class="tripDayTitle">Friday, January 20th 2015</span><hr></h4>
 						<div class="tripModule row text-center">
 								<img src="/public/hotel-example.jpg" class="img img-responsive tripModuleImg">
 								<h4><span id="tripModuleTitle">The Holiday Inn</span></h4>
@@ -89,7 +88,7 @@
 					</div>
 
 					<div class="row tripDay">
-						<h4><hr><span class="tripDayTitle">Sunday, January 22th</span><hr></h4>
+						<h4><hr><span class="tripDayTitle">Sunday, January 22th 2015</span><hr></h4>
 						<div class="tripModule row text-center">
 							<div class="col-sm-3">
 								<img src="/public/lodge-example.png" class="img img-responsive">
@@ -110,7 +109,7 @@
 					<div id="tripBodyTop" class="row">
 						<ul class="nav nav-pills">
 							<li role="presentation" class="active"><a href="#view">Trip View</a></li>
-							<li role="presentation"><a href="#edit">Edit Mode</a></li>
+							<li role="presentation"><a data-toggle="modal" href="#editTripModal">Edit Mode</a></li>
 						</ul>	
 					</div>
 					<div id="tripMap" class="row">
@@ -123,61 +122,133 @@
 
 		</div>
 
+		<div class="modal fade" id="editTripModal" tabindex="-1" role="dialog" aria-labelledby="editTrip" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Edit Trip</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="row">
+		      		<div class="col-sm-2">
+			      		<button type="button" id="editDates" class="btn btn-info">Edit Dates</button>
+			      	</div>
+			      	<form id="datesForm">
+			      		<div class="col-sm-5 form-group">
+			      			<input id="startDate" type="text" class="form-control" placeholder="Modify Start" autocomplete="off">
+			      		</div>
+			      		<div class="col-sm-5 form-group">
+			      			<input id="endDate" type="text" class="form-control" placeholder="Modify End" placeholder="off">
+			      		</div>
+			      	</form>
+			      </div>
+			      <div class="row">
+			      	<hr>
+			      </div>
+			      <div class="row">
+			      	<div class="col-sm-10 col-sm-offset-1">
+			      		<div id="calendar"></div>
+			      	</div>
+		      	</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		        <button type="button" class="btn btn-primary">Save Trip</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
 	</body>
 </html>
 
 <script type="text/javascript">
 
-    var cal = $('#calendar').fullCalendar({
-    	dayClick: function(date, jsEvent, view) {
-    		console.log("Day clicked: "+date.format());
-    	}
-    });
+	// VARIABLE DECLARE
 
+	var startDate = '2015-01-20'; // Same as IDs of edit form.
+	var endDate 	= '2015-01-25';
+
+	var inputClicked;
+
+	// EDIT CALENDAR
+	$('#calendar').fullCalendar({
+  	dayClick: function(date, jsEvent, view) {
+
+  		formatDate = String(date.format('dddd, MMM Do YYYY'));
+
+  		// eval(inputClicked + ' = ' + String(date.format('YYYY-MM-DD')));
+
+  		console.log(startDate);
+
+  		// $('#'+inputClicked).val(formatDate);
+  		$('#'+inputClicked).attr('placeholder', formatDate);
+  	},
+  	// selectable: true,
+  	// select: function(start, end, jsEvent, view) {
+  	// 	console.log("Test :"+ start.format()+" "+end.format());
+  	// },
+  	events: [
+  		{
+  			title : 	'Trip Starts',
+  			start : 	startDate
+  		},
+   		{
+  			title : 	'Trip Ends',
+  			start : 	endDate
+  		}
+  	]
+ 	});
+
+	// DOCUMENT READY
 	$( document ).ready(function() {
 
 		$('#tripMap').hide();
 		$('#tripMap').fadeIn('slow');
 
-		$('#overlayContainer').toggle();
-		// $('#overlayContainer').css('position', 'absolute');
-		$('#overlayContainer').toggle();
-
-    // $('#calendar').toggle();
-
 		getItinerary();
+   	// $('#calendar').fullCalendar('render');
+   	$('#calendar').hide();
+   	$('form#datesForm').hide();
 
 		console.log("Hey you be ready to go trippin'");
 	});
 
-	$( window ).scroll(function() {
-		if ( $(this).scrollTop() >= 114) {
-			$('#sideTitle').addClass('fixed');
-		}
-		else {
-			$('#sideTitle').removeClass('fixed');
-		}
-		// console.log($(this).scrollTop());
+	// EDIT TRIP MODAL
+	$('#editTripModal').on('shown.bs.modal', function () {
+
+
 	});
 
-	$('.dates > button').popover({
-		container: 'body',
-		html: true,
-		content: cal 
+	$('#editDates').on('click', function() {
+		$('#calendar').fadeToggle(function() {
+  	 	$(this).fullCalendar('render');			
+		});
+		$('form#datesForm').slideDown();
 	});
-	// $('.dates > button').on('click', function() {
 
-	// 	$('#calendar').slideDown("fast"); // TODO: Calendar in popover.
-	// 	console.log($(this).attr('id'));
+	$('form#datesForm input').on('focus', function() {
+		console.log($(this).attr('id'));
+		inputClicked = $(this).attr('id');
+	});
+
+	// $( window ).scroll(function() {
+	// 	if ( $(this).scrollTop() >= 114) {
+	// 		$('#sideTitle').addClass('fixed');
+	// 	}
+	// 	else {
+	// 		$('#sideTitle').removeClass('fixed');
+	// 	}
+	// 	// console.log($(this).scrollTop());
 	// });
+
+
 
 	function getItinerary() {
 
 
 	}
-
-
 
 </script>
 
