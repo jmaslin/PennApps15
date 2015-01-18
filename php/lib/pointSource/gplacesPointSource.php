@@ -16,7 +16,7 @@ class gplaces{
 	public function getPlaceFromLocation($location,$categories,$radius){
 
 		//check if categories is an array
-		$categories = (categories !== false ? (is_array($categories) ? $categories : array($categories) ) : array());
+		$categories = ($categories !== false ? (is_array($categories) ? $categories : array($categories) ) : array());
 		if (!isset($location['lat']) || !isset($location['lng']) ){
 			return array();
 		}
@@ -24,21 +24,37 @@ class gplaces{
 		$location = (object)$location;
 		//build a string URL to request data based on a location and all of the categories (use Gmaps API for syntax)
 		
+		$urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$location->lat,$location->lng&radius=$radius&key=$this->API_KEY&types=".implode("|", $categories);
 		$response = [];
-		$urlString = "https://maps.googleapis.com/maps/api/place/radarsearch/json?location=$location->lat,$location->long&radius=$radius&key=$this->API_KEY&types=";
 
-		// $urlString = "https://maps.googleapis.com/maps/api/place/radarsearch/json?location=$location['lat'],$location['long']&radius=$radius&key=$API_KEY&types=";
-		foreach($categories as $category){
+		try{
+			$tempResp = json_decode(request($urlString));
+		} catch(Exception $e){}
 
-			try{
-				echo $category;	
-				$response[$category] = json_decode(request($urlString.$category));
-			}
-			catch(Exception $e){
-				$response[$category] = array();
-			}
+		return $this->formatPlaceJSON($response);
+	}
+
+	private function formatPlaceJSON($places){
+		$places = is_array($places) ? $places : [$places];
+		$formatted = [];
+		foreach ($places as $place){
+			$formatted[] = [
+				"title" => $place->name,
+				"image" => $place->icon,
+				"time" => [
+					"arrive" => 0,
+					"depart" => 0,
+				],
+				"otherInfo" => $place->vicinity,
+				"category" => $place->category[0],
+				"quality" => $place->rating,
+				"location" => [
+					"lat" => $place->geometry->location->lat,
+					"long" => $place->geometry->location->lon,
+				],
+				"cost" => $place->price_level,
+			];
 		}
-		return $response;
 	}
 
 }
