@@ -1,7 +1,7 @@
 <?
 require_once('../basicHTTPRequest.php');
 
-class gplaces{
+class gplacesPointSource{
 	private $API_KEY = "AIzaSyCNAbTuXXz4szIEztN-8gdjQRGPKTF_rYw";
 	//gets a route from a location
 
