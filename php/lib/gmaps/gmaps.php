@@ -37,16 +37,19 @@ class gmaps{
 			}
 		}
 		if($bestStep){
-			$offset = 0;
-			while(){
+			$points = $this->decodePolylineToArray($bestStep->polyline->points);
+			$acceptedError = ($route->routes[0]->legs[0]->duration->value)/20;
+			$avgVelocity = ($bestStep->distance->value)/($bestStep->duration->value);
+			$stopLoc = $bestStep->start_location;
+
+			while(($time - $cumTime) > $acceptedError){
 
 			}
-			$stopRatio = (()/$bestStep->duration->value);
 		}
 	}
 
 
-	function decodePolylineToArray($encoded){
+	private function decodePolylineToArray($encoded){
 		$length = strlen($encoded);
 		$index = 0;
 		$points = array();
@@ -80,6 +83,17 @@ class gmaps{
 			$points[] = array($lat * 1e-5, $lng * 1e-5);
 		}
 		return $points;
+	}
+
+	private function distanceBetweenLatLng($coord1,$coord2){
+		$earthRadius = 6371; // km
+		$lat1 = $coord1['lat'].toRadians();
+		$lat2 = $coord2['lat'].toRadians();
+		$latDiff = ($lat2-$lat1).toRadians();
+		$lonDiff = ($coord2['lng']-$coord1['lng']).toRadians();
+
+		$a = sin($latDiff/2) * sin($latDiff/2) + cos($lat1) * cos($lat2) * sin($lonDiff/2) * sin($lonDiff/2);
+		$c = $earthRadius * 2 * atan2(sqrt($a), sqrt(1-$a));
 	}
 }
 

@@ -17,7 +17,7 @@ class gplaces{
 
 		//check if categories is an array
 		$categories = (categories !== false ? (is_array($categories) ? $categories : array($categories) ) : array());
-		if (!isset($location['lat']) || !isset($location['long']) ){
+		if (!isset($location['lat']) || !isset($location['lng']) ){
 			return array();
 		}
 
