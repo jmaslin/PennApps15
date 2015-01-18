@@ -51,11 +51,7 @@ img {
 }
 
 #tripMap {
-	/*position: fixed;*/
-}
-
-#tripMap > * {
-	position: relative;
+	margin-top: 5em;
 }
 
 .tripDay {
