@@ -1,0 +1,16 @@
+[{
+	"title":"Philadelphia Zoo",
+	"image":"http://www.philadelphiasightseeingtours.com/wp-content/plugins/wp-tours/tours_image/110920121347359878.jpeg",
+	"time": {
+			"arrive": "1:00pm",
+			"depart":2
+	},
+	"otherInfo":"cool zoo",
+	"category":"zoo",
+	"quality":3,
+	"location": {
+			"lat":	40.09011,
+			"lng":-75.40746
+	},
+	"cost":1
+}]

@@ -5,21 +5,34 @@
 		<title>Trip</title>
 		<!-- CSS -->
 		<link href="/public/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link href="/public/components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" media="screen">
 
 		<link href="/public/trip.css" rel="stylesheet" media="screen">
 		<link href="/public/map.css" rel="stylesheet" media="screen">
 
 		<!-- JS -->
-		<script src="/public/components/jquery/dist/jquery.min.js"></script>
-		<script src="/public/components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="/public/components/moment/min/moment.min.js"></script>
-		<script src="/public/components/fullcalendar/dist/fullcalendar.min.js"></script>
+		<script src="/public/components/jquery/dist/jquery.js"></script>
+		<script src="/public/components/bootstrap/dist/js/bootstrap.js"></script>
 
+		<!-- Full Calendar -->
+<!-- 		<script src="/public/components/moment/min/moment.min.js"></script>
+		<script src="/public/components/fullcalendar/dist/fullcalendar.min.js"></script>
+		<link href="/public/components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" media="screen"> -->
+
+		<!-- PickADate -->
+		<script src="/public/components/pickadate/lib/picker.js"></script>
+		<script src="/public/components/pickadate/lib/picker.date.js"></script>
+		<script src="/public/components/pickadate/lib/picker.time.js"></script>
+		<!-- <script src="/public/components/pickadate/lib/legacy.js"></script> -->
+
+		<link href="/public/components/pickadate/lib/themes/classic.css" rel="stylesheet" media="screen"></script>
+		<link href="/public/components/pickadate/lib/themes/classic.date.css" rel="stylesheet" media="screen"></script>
+		<link href="/public/components/pickadate/lib/themes/classic.time.css" rel="stylesheet" media="screen"></script>
+
+<!-- 
 		<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYciGKuGqG10zrJs4ZrTWkHVkd0nhMu6k">
     </script>
-
+ -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 	</head>
 	<body>
@@ -61,16 +74,18 @@
 
 					<div id="tripSideTop" class="row">
 						<div class="col-sm-12">
-							<h3><strong>Itinerary</strong>
+							<h3><strong>Trip Itinerary</strong>	</h3>
+								<button id="calViewBtn" class="btn btn-sm btn-info">Calendar View</button>
 								<button data-toggle="modal" href="#editTripModal" class="btn btn-sm btn-warning">Edit Trip Details</button>
-							</h3>
+						
 						</div>
 					</div>
 
 					<div class="row tripDay col-sm-12">
 						<h4><hr><span class="tripDayTitle">Friday, January 20th 2015</span><hr></h4>
 						<div class="tripModule row text-center">
-								<img src="/public/hotel-example.jpg" class="img img-responsive tripModuleImg">
+							<img src="/public/hotel-example.jpg" class="img img-responsive tripModuleImg">
+							<div class="row">
 								<h4><span id="tripModuleTitle">The Holiday Inn</span></h4>
 								<p>
 									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -78,10 +93,13 @@
 									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									(99 Reviews)
-								</p>
+									(99 Reviews) 
+									<img class="img img-responsive" src="/public/img/icon/settings.png" width="5%" style="display: inline-block;">
 
+								</p>
 								<p><em>Note:</em> Check-in begins at 5pm.</p>
+
+							</div>
 						</div>
 						<div class="tripModule row text-center">
 								<img src="/public/hotel-example.jpg" class="img img-responsive tripModuleImg">
@@ -126,10 +144,10 @@
 						</ul>	
 					</div>
 					<div id="tripMap" class="row">
-					<!-- <div class="row"> -->
-						<div id="map-canvas"></div>
+						<!-- <div id="map-canvas"></div> -->
+						<img src="/public/bigmap-example.jpg">
+
 					</div>
-						<!-- <img src="/public/bigmap-example.jpg"> -->
 					<!-- </div> -->
 				</div>
 				<!-- MAIN END -->
@@ -147,15 +165,18 @@
 		        <h4 class="modal-title" id="myModalLabel">Edit Trip</h4>
 		      </div>
 		      <div class="modal-body">
-			      <form id="datesForm" class="form-inline">
+		      	<h4>Trip Start and End Days</h4>
+			      <form id="tripDays" class="form">
+
+
 			      	<div class="row">
-			      		<div id="modalButtons" class="col-sm-2">
+			      <!-- 		<div id="modalButtons" class="col-sm-2">
 				      		<button type="button" id="editDates" class="btn btn-info">Edit Dates</button>
 				      		<button type="button" id="saveDates" class="btn btn-success">Save Dates</button>
-				      	</div>
+				      	</div> -->
 				      	<div class="col-sm-5">
 				      		<div class="form-group">
-				      			<input id="startDate" type="text" class="form-control" placeholder="Modify Start" autocomplete="off">
+				      			<input id="startDate" type="text" class="form-control datepicker" placeholder="Modify Start" autocomplete="off">
 				      		</div>
 				      	</div>
 				      	<div class="col-sm-5">
@@ -164,13 +185,13 @@
 				      		</div>
 			      		</div>
 			      	</div>
+			      	<p class="lead">Your trip is <span id="tripLength"></span> days long!</p>
 			      </form>
 			      <div class="row">
 			      	<hr>
 			      </div>
 			      <div class="row">
 			      	<div class="col-sm-10 col-sm-offset-1">
-			      		<div id="calendar"></div>
 			      	</div>
 		      	</div>
 		      </div>
@@ -198,10 +219,9 @@
 	  var map = new google.maps.Map(document.getElementById('map-canvas'),
 	      mapOptions);
 
-
 	}
 
-	google.maps.event.addDomListener(window, 'load', initialize);
+	// google.maps.event.addDomListener(window, 'load', initialize);
 
 	console.log("Init map.");
 </script>
@@ -217,29 +237,29 @@
 	var inputClicked;
 
 	// EDIT CALENDAR
-	$('#calendar').fullCalendar({
-  	dayClick: function(date, jsEvent, view) {
+	// $('#calendar').fullCalendar({
+ //  	dayClick: function(date, jsEvent, view) {
 
-  		formatDate = String(date.format('dddd, MMM Do YYYY'));
-  		$('#'+inputClicked).attr('placeholder', formatDate);
+ //  		formatDate = String(date.format('dddd, MMM Do YYYY'));
+ //  		$('#'+inputClicked).attr('placeholder', formatDate);
 
-  		// TODO: Hidden form fields that save date formatted in YYYY-MM-DD.
-  	},
-  	// selectable: true,
-  	// select: function(start, end, jsEvent, view) {
-  	// 	console.log("Test :"+ start.format()+" "+end.format());
-  	// },
-  	events: [
-  		{
-  			title : 	'Trip Starts',
-  			start : 	startDate
-  		},
-   		{
-  			title : 	'Trip Ends',
-  			start : 	endDate
-  		}
-  	]
- 	});
+ //  		// TODO: Hidden form fields that save date formatted in YYYY-MM-DD.
+ //  	},
+ //  	// selectable: true,
+ //  	// select: function(start, end, jsEvent, view) {
+ //  	// 	console.log("Test :"+ start.format()+" "+end.format());
+ //  	// },
+ //  	events: [
+ //  		{
+ //  			title : 	'Trip Starts',
+ //  			start : 	startDate
+ //  		},
+ //   		{
+ //  			title : 	'Trip Ends',
+ //  			start : 	endDate
+ //  		}
+ //  	]
+ // 	});
 
 	// DOCUMENT READY
 	$( document ).ready(function() {
@@ -247,39 +267,45 @@
 		$('#tripMap').hide();
 		$('#tripMap').fadeIn('slow');
 
-		// getItinerary();
+		$('form#tripDays input').on('click', function() {
+			console.log($(this).attr('id'));
+			$(this).pickadate();
+		});
+
+		getItinerary();
    	// $('#calendar').fullCalendar('render');
-   	$('#calendar').hide();
-   	$('form .form-group').hide();
-   	$('#saveDates').hide();
 
 		console.log("Hey you be ready to go trippin'");
 	});
 
 	// EDIT TRIP MODAL
-	// $('#editTripModal').on('shown.bs.modal', function () {
+	$('#editTripModal').on('shown.bs.modal', function () {
 
-	// 	// $('#calendar').hide(function() {
- //  // 	 	$(this).fullCalendar('render');			
-	// 	// });
+		$('#startDate').attr('placeholder', startDate);
+		$('#endDate').attr('placeholder', endDate);
+
+	});
+
+	$('form#tripDay input').on('focus', function() {
+		$('.datepicker').pickadate();
+	});
+
+	// $('#editDates').on('click', function() {
+	// 	$('#calendar').slideDown(function() {
+ //  	 	$(this).fullCalendar('render');			
+	// 	});
+	// 	$('#editDates').slideUp('fast', function() {
+	// 		$('#saveDates').slideDown('fast');
+	// 		$('form .form-group').fadeToggle();
+	// 	})
 	// });
-
-	$('#editDates').on('click', function() {
-		$('#calendar').slideDown(function() {
-  	 	$(this).fullCalendar('render');			
-		});
-		$('#editDates').slideUp('fast', function() {
-			$('#saveDates').slideDown('fast');
-			$('form .form-group').fadeToggle();
-		})
-	});
-	$('#saveDates').on('click', function() {
-		$('#calendar').slideUp('fast');
-		$('#saveDates').slideUp('fast', function() {
-			$('#editDates').slideDown('fast');
-			$('form .form-group').fadeToggle();
-		})
-	});
+	// $('#saveDates').on('click', function() {
+	// 	$('#calendar').slideUp('fast');
+	// 	$('#saveDates').slideUp('fast', function() {
+	// 		$('#editDates').slideDown('fast');
+	// 		$('form .form-group').fadeToggle();
+	// 	})
+	// });
 
 	$('form#datesForm input').on('focus', function() {
 		console.log($(this).attr('id'));
@@ -296,14 +322,44 @@
 	// 	// console.log($(this).scrollTop());
 	// });
 
+	function generateEvents() {
+
+	}
+
 	function getItinerary() {
 
 		$.ajax({
 			dataType: 'json',
-			url: '/public/test/getdata.php',
-			data: 'data',
+			url: '/public/testdata.json',
 			success: function(data) {
+				var eventArray = data;
+				$.each(eventArray, function(eventIndex, eventData) {
 
+					var eventModule =
+					'<div class="tripModule row">' +
+						'<img class="img img-responsive tripModuleImg" src="'+eventData.image+'">' +
+						'<div class="row">' +
+							'<div class="tripModuleInfo col-sm-9">' +
+								'<h3><strong><span id="tripModuleTitle">'+eventData.title+'</span></strong></h3>' +
+								'<div class="tripModuleBadges">' +
+									'<button class="btn btn-info">Rating: <span class="badge" id="tripModuleQuality">'+eventData.quality+'</span> </button> ' +
+									'<button class="btn btn-success">Price: <span class="badge" id="tripModuleCost">'+eventData.cost+'</span> </button>' +
+								'</div>' +
+								'<p class="lead">Estimated Arrival: <samp>'+eventData.time.arrive+'</samp></p>' +
+							'</div>' +
+							'<div class="col-sm-2 col-sm-offset-1">' +
+								'<img class="tripModuleEditImg img img-responsive" src="/public/img/icon/settings.png">'+
+							'</div>'+
+						'</div>' +
+					'</div>';
+						
+					$('#tripSide').append(eventModule);
+
+						console.log(eventModule);
+
+ 					console.log( eventIndex + ": " + eventData.title );
+				});
+			
 			}
 		});
 
