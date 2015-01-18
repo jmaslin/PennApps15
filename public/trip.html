@@ -14,8 +14,8 @@
 		<script src="/public/components/bootstrap/dist/js/bootstrap.js"></script>
 
 		<!-- Full Calendar -->
-<!-- 		<script src="/public/components/moment/min/moment.min.js"></script>
-		<script src="/public/components/fullcalendar/dist/fullcalendar.min.js"></script>
+		<script src="/public/components/moment/min/moment.min.js"></script>
+<!-- 		<script src="/public/components/fullcalendar/dist/fullcalendar.min.js"></script>
 		<link href="/public/components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" media="screen"> -->
 
 		<!-- PickADate -->
@@ -82,7 +82,8 @@
 					</div>
 
 					<div class="row tripDay col-sm-12">
-						<h4><hr><span class="tripDayTitle">Friday, January 20th 2015</span><hr></h4>
+						<hr><span class="tripDayTitle">Friday, January 20th 2015</span><hr>
+						
 						<div class="tripModule row text-center">
 							<img src="/public/hotel-example.jpg" class="img img-responsive tripModuleImg">
 							<div class="row">
@@ -328,15 +329,41 @@
 
 	function getItinerary() {
 
+		var tripDay = 0;
+
 		$.ajax({
 			dataType: 'json',
 			url: '/public/testdata.json',
 			success: function(data) {
 				var eventArray = data;
 				$.each(eventArray, function(eventIndex, eventData) {
+						
+					date = moment(eventData.time.arrive).format("dddd, MMMM DDDo, YYYY");
+
+
+					if (eventIndex > 0) {
+						if (moment(eventData.time.arrive).isAfter(data[eventIndex-1].time.arrive)) {
+							tripDay++;
+
+							var newTripDay = 
+								'<div id="'+tripDay+'" class="row tripDay col-sm-12">'+
+									'<hr><button type="button" class="btn btn-primary tripDayTitle">'+date+'</button><hr>'+
+								'</div>';	
+							$('#tripSide').append(newTripDay);
+						}
+					}
+					else {
+						var newTripDay = 
+							'<div id="'+tripDay+'" class="row tripDay col-sm-12">'+
+								'<hr><button type="button" class="btn btn-primary tripDayTitle">'+date+'</button><hr>'+
+							'</div>';				
+						$('#tripSide').append(newTripDay);
+					}
+
+					time = moment(eventData.time.arrive).format("hh:mma");
 
 					var eventModule =
-					'<div class="tripModule row">' +
+					'<div class="tripModule row day'+tripDay+'Module" data-tripDay="'+tripDay+'">' +
 						'<img class="img img-responsive tripModuleImg" src="'+eventData.image+'">' +
 						'<div class="row">' +
 							'<div class="tripModuleInfo col-sm-9">' +
@@ -345,26 +372,42 @@
 									'<button class="btn btn-info">Rating: <span class="badge" id="tripModuleQuality">'+eventData.quality+'</span> </button> ' +
 									'<button class="btn btn-success">Price: <span class="badge" id="tripModuleCost">'+eventData.cost+'</span> </button>' +
 								'</div>' +
-								'<p class="lead">Estimated Arrival: <samp>'+eventData.time.arrive+'</samp></p>' +
+								'<p class="lead">Estimated Arrival: <samp>'+time+'</samp></p>' +
 							'</div>' +
 							'<div class="col-sm-2 col-sm-offset-1">' +
-								'<img class="tripModuleEditImg img img-responsive" src="/public/img/icon/settings.png">'+
+								'<a class="editModule" href="#"><img class="tripModuleClickImg img img-responsive" src="/public/img/icon/settings.png"></a>'+
+								'<a class="aboutModule" href="#"><img class="tripModuleClickImg img img-responsive" src="/public/img/icon/info.png"></a>' +
 							'</div>'+
 						'</div>' +
 					'</div>';
 						
-					$('#tripSide').append(eventModule);
+					$('#tripSide .tripDay:last').append(eventModule);
 
-						console.log(eventModule);
+						// console.log(eventModule);
+					$('#tripSide').trigger("Updated Itinerary");
 
- 					console.log( eventIndex + ": " + eventData.title );
+ 					// console.log( eventIndex + ": " + eventData.title );
 				});
-			
+
 			}
 		});
-
-
 	}
+
+	$('#tripSide').on('click', '.tripDayTitle', function() {
+
+		$(this).parent().find('.tripModule').slideToggle('fast');
+		console.log("Hi");
+	});
+
+	// $('a .editModule').on({
+	// 	mouseenter: function() {
+	// 		$(this).fadeTo(500, 1);
+	// 		console.log("TEST");
+	// 	},
+	// 	mouseleave: function() {
+	// 		$(this).fadeTo(500, 0.5);
+	// 	}
+	// }, 'img');
 
 </script>
 

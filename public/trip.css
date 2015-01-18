@@ -72,12 +72,27 @@ img {
 	box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
 }
 
+.tripDayTitle {
+	font-weight: bold;
+	font-size: 1.25em;
+	width: 100%;
+	display: inline-block;
+	height: 2em;
+	vertical-align: center;
+}
+
 .tripModuleImg {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 	width: 100%;
 	height: auto;
+}
+
+.tripModuleClickImg {
+	padding-right: 0.5em;
+	width: 80%;
+	vertical-align: center;
 }
 
 .tripModuleBadges {
