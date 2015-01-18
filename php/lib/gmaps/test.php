@@ -22,6 +22,10 @@ $categories = array(
 
 //$places_response = $mapPlacesAPI->getPlaceFromLocation($location,$categories,$radius);
 //echo var_dump($places_response);
-$mapAPI->getLocationFromRouteTime($response,10000);
+
+$stepInt = $mapAPI->getLocationFromRouteTime($response,10000);
+$step = $response->routes[0]->legs[0]->steps[$stepInt-1];
+//echo var_dump($route->routes[0]->legs[0]);
+echo var_dump($mapAPI->decodePolylineToArray($step->polyline->points));
 
 ?>
