@@ -1,5 +1,5 @@
 <?
-require_once('../basicHTTPRequest.php');
+require_once(dirname(__FILE__).'/../basicHTTPRequest.php');
 
 class gmaps{
 	private $API_KEY = "AIzaSyCNAbTuXXz4szIEztN-8gdjQRGPKTF_rYw";
@@ -24,7 +24,13 @@ class gmaps{
 	
 	public function getRouteLocationFromTime($route,$time){
 		//sanity checks that route is less than total route time, etc
-
+		if($time === 0){
+			return (object)[ 
+				"lat" => $route->routes[0]->legs[0]->start_location->lat,
+				"lng" => $route->routes[0]->legs[0]->start_location->lng,
+			];
+		}
+		
 		//iterate over each step of the trip in each leg of the trip and add times until 
 		$steps = $route->routes[0]->legs[0]->steps;
 		$cumTime = 0;
@@ -61,12 +67,12 @@ class gmaps{
 
 				//now we have our closest point, find a stopping point on the line
 				//which is between it and the next point
-				echo "time: $time , cumTime: $cumTime , lineDist: $lineDist , avgVel: $avgVel \n";
+				//echo "time: $time , cumTime: $cumTime , lineDist: $lineDist , avgVel: $avgVel \n";
 				$timeLeftRatio = ($time-$cumTime)/($lineDist/$avgVel);
-				echo "TLR!!: " . $timeLeftRatio;
+				//echo "TLR!!: " . $timeLeftRatio;
 				$newLat = $stopLoc->lat + (($points[$lineIndex]->lat - $stopLoc->lat)*$timeLeftRatio);
 				$newLng = $stopLoc->lng + (($points[$lineIndex]->lng - $stopLoc->lng)*$timeLeftRatio);
-				echo "Stoploc: " . var_dump($stopLoc) . "\nNewStopLoc: " . $newLat . "," . $newLng . "\nendpoints: ";
+				//echo "Stoploc: " . var_dump($stopLoc) . "\nNewStopLoc: " . $newLat . "," . $newLng . "\nendpoints: ";
 
 				return (object)[ 'lat' => $newLat, 'lng' => $newLng ];
 			}

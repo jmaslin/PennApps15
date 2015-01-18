@@ -1,5 +1,5 @@
 <?
-require_once('../basicHTTPRequest.php');
+require_once(dirname(__FILE__).'/../basicHTTPRequest.php');
 
 class gplacesPointSource{
 	private $API_KEY = "AIzaSyCNAbTuXXz4szIEztN-8gdjQRGPKTF_rYw";
@@ -17,8 +17,8 @@ class gplacesPointSource{
 
 		//check if categories is an array
 		$categories = ($categories !== false ? (is_array($categories) ? $categories : array($categories) ) : array());
-		if (!isset($location['lat']) || !isset($location['lng']) ){
-			return array();
+		if (!isset($location->lat) || !isset($location->lng) ){
+			return ["fail" => true];
 		}
 
 		$location = (object)$location;
@@ -28,33 +28,41 @@ class gplacesPointSource{
 		$response = [];
 
 		try{
-			$tempResp = json_decode(request($urlString));
+			$response = json_decode(request($urlString));
 		} catch(Exception $e){}
 
-		return $this->formatPlaceJSON($response);
+		if(strcmp($response->status,'OK') !== 0){
+			return ["fail" => true];
+		}
+
+		$toReturn = $this->formatPlaceJSON($response->results);
+
+		return $toReturn;
 	}
 
 	private function formatPlaceJSON($places){
 		$places = is_array($places) ? $places : [$places];
 		$formatted = [];
 		foreach ($places as $place){
-			$formatted[] = [
+			$formatted[] = (object)[
 				"title" => $place->name,
 				"image" => $place->icon,
-				"time" => [
+				"time" => (object)[
 					"arrive" => 0,
 					"depart" => 0,
 				],
 				"otherInfo" => $place->vicinity,
-				"category" => $place->category[0],
+				"category" => $place->category,
 				"quality" => $place->rating,
 				"location" => [
 					"lat" => $place->geometry->location->lat,
-					"long" => $place->geometry->location->lon,
+					"lng" => $place->geometry->location->lng,
 				],
 				"cost" => $place->price_level,
 			];
 		}
+		$formatted['fail'] = false;
+		return $formatted;
 	}
 
 }
