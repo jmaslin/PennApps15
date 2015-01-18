@@ -49,8 +49,9 @@ img {
 }
 
 #tripMap {
-	margin-top: 5em;
-	position: fixed;
+	margin-top: 3em;
+	/*position: fixed;*/
+	position: relative;
 }
 
 .tripDay {
@@ -104,5 +105,11 @@ img {
 }
 
 #modalButtons > button {
-	width: 120%;
+	width: 100%;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+	cursor: default;
+	background-color: white;
+
 }

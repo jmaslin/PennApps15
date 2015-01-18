@@ -27,12 +27,16 @@
 		<link href="/public/components/pickadate/lib/themes/classic.css" rel="stylesheet" media="screen"></script>
 		<link href="/public/components/pickadate/lib/themes/classic.date.css" rel="stylesheet" media="screen"></script>
 		<link href="/public/components/pickadate/lib/themes/classic.time.css" rel="stylesheet" media="screen"></script>
-
 <!-- 
 		<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYciGKuGqG10zrJs4ZrTWkHVkd0nhMu6k">
     </script>
  -->
+   	<script src="/public/components/sticky/jquery.sticky.js"></script>
+
+   	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+   	<script src="/public/components/gmaps/gmaps.js"></script>
+
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 	</head>
 	<body>
@@ -81,57 +85,7 @@
 						</div>
 					</div>
 
-					<div class="row tripDay col-sm-12">
-						<hr><span class="tripDayTitle">Friday, January 20th 2015</span><hr>
-						
-						<div class="tripModule row text-center">
-							<img src="/public/hotel-example.jpg" class="img img-responsive tripModuleImg">
-							<div class="row">
-								<h4><span id="tripModuleTitle">The Holiday Inn</span></h4>
-								<p>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									(99 Reviews) 
-									<img class="img img-responsive" src="/public/img/icon/settings.png" width="5%" style="display: inline-block;">
-
-								</p>
-								<p><em>Note:</em> Check-in begins at 5pm.</p>
-
-							</div>
-						</div>
-						<div class="tripModule row text-center">
-								<img src="/public/hotel-example.jpg" class="img img-responsive tripModuleImg">
-								<h4><span id="tripModuleTitle">The Holiday Inn</span></h4>
-								<p>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									(99 Reviews)
-								</p>
-
-								<p><em>Note:</em> Check-in begins at 5pm.</p>
-						</div>
-					</div>
-
-					<div class="row tripDay">
-						<h4><hr><span class="tripDayTitle">Sunday, January 22th 2015</span><hr></h4>
-						<div class="tripModule row text-center">
-							<div class="col-sm-3">
-								<img src="/public/lodge-example.png" class="img img-responsive">
-							</div>
-							<div class="col-sm-7">
-								<p><strong><span id="tripModuleTitle">The Holiday Inn</span></strong></p>
-								<p>5 Stars - 96 Reviews</p>
-								<p><em>Note:</em> Check-in begins at 5pm.</p>
-							</div>
-						</div>
-					</div>					
-
+					
 				</div>
 				<!-- SIDE END -->
 
@@ -145,8 +99,8 @@
 						</ul>	
 					</div>
 					<div id="tripMap" class="row">
-						<!-- <div id="map-canvas"></div> -->
-						<img src="/public/bigmap-example.jpg">
+						<div id="map-canvas"></div>
+						<!-- <img src="/public/bigmap-example.jpg"> -->
 
 					</div>
 					<!-- </div> -->
@@ -166,31 +120,43 @@
 		        <h4 class="modal-title" id="myModalLabel">Edit Trip</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<h4>Trip Start and End Days</h4>
+		      	<h3>Change your <span class="text-primary">timeline</span>.</h3>
 			      <form id="tripDays" class="form">
-
-
 			      	<div class="row">
-			      <!-- 		<div id="modalButtons" class="col-sm-2">
-				      		<button type="button" id="editDates" class="btn btn-info">Edit Dates</button>
-				      		<button type="button" id="saveDates" class="btn btn-success">Save Dates</button>
-				      	</div> -->
-				      	<div class="col-sm-5">
+				      	<div class="col-sm-6">
 				      		<div class="form-group">
-				      			<input id="startDate" type="text" class="form-control datepicker" placeholder="Modify Start" autocomplete="off">
+				      			<input id="startDate" type="text" class="form-control input-lg" placeholder="Modify Start" autocomplete="off">
 				      		</div>
 				      	</div>
-				      	<div class="col-sm-5">
+				      	<div class="col-sm-6">
 				      		<div class="form-group">
-				      			<input id="endDate" type="text" class="form-control" placeholder="Modify End" autocomplete="off">
+				      			<input id="endDate" type="text" class="form-control input-lg" placeholder="Modify End" autocomplete="off">
 				      		</div>
 			      		</div>
-			      	</div>
-			      	<p class="lead">Your trip is <span id="tripLength"></span> days long!</p>
+			      		<div id="modalButtons" class="col-sm-2">
+				      		<!-- <button type="button" id="saveDates" class="btn btn-success btn-lg">Save</button> -->
+				      	</div>
+			      	</div>	      	
+			      	<!-- <p class="lead">Your trip is <span id="tripLength"></span> days long!</p> -->
 			      </form>
-			      <div class="row">
+			 			<div class="row">
 			      	<hr>
 			      </div>
+			      <h3>Change a <span class="text-primary">waypoint</span>.</h3>
+			      <form id="tripLoc" class="form">
+			      	<div class="row">
+			      		<div class="col-sm-6">
+			      			<div class="form-group">
+			      				<input id="startLoc" type="text" class="form-control input-lg" placeholder="Start Location">
+			      			</div>
+			      		</div>
+			      		<div class="col-sm-6">
+			      			<div class="form-group">
+			      				<input id="endLoc" type="text" class="form-control input-lg" placeholder="End Location">
+			      			</div>
+			      		</div>
+			      	</div>
+			      </form>
 			      <div class="row">
 			      	<div class="col-sm-10 col-sm-offset-1">
 			      	</div>
@@ -207,7 +173,7 @@
 
 	</body>
 </html>
-
+<!-- 
 <script type="text/javascript">
 
 	function initialize() {
@@ -222,18 +188,18 @@
 
 	}
 
-	// google.maps.event.addDomListener(window, 'load', initialize);
+	google.maps.event.addDomListener(window, 'load', initialize);
 
 	console.log("Init map.");
 </script>
-
+ -->
 
 <script type="text/javascript">
 
 	// VARIABLE DECLARE
 
-	var startDate = '2015-01-20'; // Same as IDs of edit form.
-	var endDate 	= '2015-01-25';
+	var startDate = 1421712000; // Same as IDs of edit form.
+	var endDate 	= 1422144000;
 
 	var inputClicked;
 
@@ -261,6 +227,12 @@
  //  		}
  //  	]
  // 	});
+   var map = new GMaps({
+      el: '#map-canvas',
+      lat: 39.958359,
+      lng: -75.195393,
+      zoom: 10
+    });
 
 	// DOCUMENT READY
 	$( document ).ready(function() {
@@ -268,22 +240,46 @@
 		$('#tripMap').hide();
 		$('#tripMap').fadeIn('slow');
 
-		$('form#tripDays input').on('click', function() {
-			console.log($(this).attr('id'));
-			$(this).pickadate();
-		});
 
 		getItinerary();
    	// $('#calendar').fullCalendar('render');
 
+   	// $('#tripMap').sticky({topSpacing: 250});
+
+
 		console.log("Hey you be ready to go trippin'");
 	});
+
+	$('form#tripDays input#startDate').on('click', function() {
+		console.log($(this).attr('id'));
+		$(this).pickadate({
+			format: 'Starts On: dddd, dd mmm, yyyy',
+			formatSubmit: 'yyyy-mm-dd',
+			// hiddenName: true,
+			// container: 'body'
+		});
+				console.log($('#startDate').attr('placeholder'))
+	});
+	$('form#tripDays input#endDate').on('click', function() {
+		console.log($(this).attr('id'));
+		$(this).pickadate({
+			format: 'En!ds On: dddd, dd mmm, yyyy',
+			formatSubmit: 'yyyy-mm-dd',
+			// hiddenName: true,
+			min: $('#startDate').val()
+			// container: 'body'
+		});
+				console.log($('#startDate').attr('placeholder'))
+
+	});
+
 
 	// EDIT TRIP MODAL
 	$('#editTripModal').on('shown.bs.modal', function () {
 
-		$('#startDate').attr('placeholder', startDate);
-		$('#endDate').attr('placeholder', endDate);
+		$('#startDate').attr('placeholder', moment(startDate, 'X').format("dddd, MMMM DDDo, YYYY"));
+		$('#endDate').attr('placeholder', moment(endDate, 'X').format("dddd, MMMM DDDo, YYYY"));
+	;
 
 	});
 
@@ -327,6 +323,8 @@
 
 	}
 
+	// TODO: MAKE A TOGGLE BUTTON FOR WHEN DAY EVENTS HIDDEN THAT ONLY SHOWS WHRN HIDDEN (IN THAT EMPTY SPACE)
+
 	function getItinerary() {
 
 		var tripDay = 0;
@@ -337,10 +335,10 @@
 			success: function(data) {
 				var eventArray = data;
 				$.each(eventArray, function(eventIndex, eventData) {
-						
-					date = moment(eventData.time.arrive).format("dddd, MMMM DDDo, YYYY");
+					
 
-
+					var date = moment(eventData.time.arrive, 'X').format("dddd, MMMM DDDo, YYYY");
+					console.log(eventIndex+" "+date);
 					if (eventIndex > 0) {
 						if (moment(eventData.time.arrive).isAfter(data[eventIndex-1].time.arrive)) {
 							tripDay++;
@@ -382,6 +380,15 @@
 					'</div>';
 						
 					$('#tripSide .tripDay:last').append(eventModule);
+
+					map.addMarker({
+					  lat: eventData.location.lat,
+					  lng: eventData.location.lng,
+					  title: eventData.title,
+					  click: function(e) {
+					  	// TODO: NICE MODAL SHOWING INFO.
+					  }
+					});
 
 						// console.log(eventModule);
 					$('#tripSide').trigger("Updated Itinerary");

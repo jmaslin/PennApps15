@@ -3,23 +3,7 @@
 		"title":"Philadelphia Zoo",
 		"image":"http://www.philadelphiasightseeingtours.com/wp-content/plugins/wp-tours/tours_image/110920121347359878.jpeg",
 		"time": {
-				"arrive": 1420848000,
-				"depart": 2
-		},
-		"otherInfo":"cool zoo",
-		"category":"zoo",
-		"quality":3,
-		"location": {
-				"lat":	40.09011,
-				"lng":-75.40746
-		},
-		"cost":1
-	},
-	{
-		"title":"Philadelphia Zoo",
-		"image":"http://www.philadelphiasightseeingtours.com/wp-content/plugins/wp-tours/tours_image/110920121347359878.jpeg",
-		"time": {
-				"arrive": 1420848000,
+				"arrive": 1421280000,
 				"depart": 2
 		},
 		"otherInfo":"cool zoo",
@@ -51,7 +35,7 @@
 		"title":"Philadelphia Zoo",
 		"image":"http://www.philadelphiasightseeingtours.com/wp-content/plugins/wp-tours/tours_image/110920121347359878.jpeg",
 		"time": {
-				"arrive": 1421034359,
+				"arrive": 14210399559,
 				"depart":2
 		},
 		"otherInfo":"cool zoo",
