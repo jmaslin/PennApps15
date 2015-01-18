@@ -6,7 +6,7 @@ class gmaps{
 	//gets a route from a location
 
 	private function buildResponse($data){
-		$response = [
+		$response = (object)[
 	        	'error' => "",
 	        	'success' => false,
 		        'data' => (data === false ? (is_array($data) ? $data : array($data) )  : array())  
@@ -14,42 +14,66 @@ class gmaps{
 	}
 
 	public function getRouteFromLocations($from,$to){
-		$response = json_decode(request("https://maps.googleapis.com/maps/api/directions/json?origin=$from&destination=$to&key=$API_KEY"));
+		$response = false;
+		try{
+			$response = json_decode(request("https://maps.googleapis.com/maps/api/directions/json?origin=$from&destination=$to&key=$API_KEY"));
+		}
+		catch(Exception $e){}
 		return $response;
 	}
 	
-	public function getLocationFromRouteTime($route,$time){
+	public function getRouteLocationFromTime($route,$time){
 		//sanity checks that route is less than total route time, etc
 
 		//iterate over each step of the trip in each leg of the trip and add times until 
 		$steps = $route->routes[0]->legs[0]->steps;
 		$cumTime = 0;
-		$bestStep = false;
 
 		foreach($steps as $stepKey => $step){
 			$nextTime = $steps[$stepKey+1]->duration->value;
-			$cumTime += $step->duration->value;
-
-
-			if(abs($cumTime - $time)  < abs(($cumTime + $nextTime) - $time)){
-				$bestStep = $step;
-				break;
+			//we can prograss through some more points
+			if (($cumTime + $nextTime) <= $time) {
+				$cumTime += $step->duration->value;
 			}
-		}
-		if($bestStep){
-			$points = $this->decodePolylineToArray($bestStep->polyline->points);
-			$acceptedError = ($route->routes[0]->legs[0]->duration->value)/20;
-			$avgVelocity = ($bestStep->distance->value)/($bestStep->duration->value);
-			$stopLoc = $bestStep->start_location;
+			//the cumulative time is as close as possible with steps, move on to points
+			else{
+				//constants for equations and profit
+				$points = $this->decodePolylineToArray($step->polyline->points);
+				$stepDistance = $step->distance->value;
+				$avgVel = $stepDistance/($step->duration->value);
+				
+				//this will end up with the coords of the stop location
+				$stopLoc = $step->start_location;
+				$lineIndex = 0;
+				$numPoints = count($points);
 
-			while(($time - $cumTime) > $acceptedError){
+				$lineDist = $this->distanceBetweenLatLng($stopLoc,$points[$lineIndex]);
 
+				//increase a factor of granularity to points
+				while( ($cumTime + ($lineDist / $avgVel)) <= $time && $lineIndex < $numPoints ){
+					echo ($cumTime + ($lineDist / $avgVel))." is less than ".$time."\n";
+					$stopLoc = $coordPath[$lineIndex];
+					$lineIndex++;
+					$cumTime += $lineDist/$avgVel;
+
+					$lineDist = $this->distanceBetweenLatLng($stopLoc,$points[$lineIndex]);
+				}
+
+				//now we have our closest point, find a stopping point on the line
+				//which is between it and the next point
+				echo "time: $time , cumTime: $cumTime , lineDist: $lineDist , avgVel: $avgVel \n";
+				$timeLeftRatio = ($time-$cumTime)/($lineDist/$avgVel);
+				echo "TLR!!: " . $timeLeftRatio;
+				$newLat = $stopLoc->lat + (($points[$lineIndex]->lat - $stopLoc->lat)*$timeLeftRatio);
+				$newLng = $stopLoc->lng + (($points[$lineIndex]->lng - $stopLoc->lng)*$timeLeftRatio);
+				echo "Stoploc: " . var_dump($stopLoc) . "\nNewStopLoc: " . $newLat . "," . $newLng . "\nendpoints: ";
+
+				return (object)[ 'lat' => $newLat, 'lng' => $newLng ];
 			}
 		}
 	}
-
-
-	private function decodePolylineToArray($encoded){
+	
+	public function decodePolylineToArray($encoded){
 		$length = strlen($encoded);
 		$index = 0;
 		$points = array();
@@ -86,14 +110,16 @@ class gmaps{
 	}
 
 	private function distanceBetweenLatLng($coord1,$coord2){
-		$earthRadius = 6371; // km
-		$lat1 = $coord1['lat'].toRadians();
-		$lat2 = $coord2['lat'].toRadians();
-		$latDiff = ($lat2-$lat1).toRadians();
-		$lonDiff = ($coord2['lng']-$coord1['lng']).toRadians();
+		$earthRadius = 20890566; // ft
+		$lat1 = deg2rad($coord1->lat);
+		$lat2 = deg2rad($coord2->lat);
+		$latDiff = deg2rad($lat2-$lat1);
+		$lonDiff = deg2rad($coord2->lng-$coord1->lng);
 
 		$a = sin($latDiff/2) * sin($latDiff/2) + cos($lat1) * cos($lat2) * sin($lonDiff/2) * sin($lonDiff/2);
 		$c = $earthRadius * 2 * atan2(sqrt($a), sqrt(1-$a));
+
+		return $c;
 	}
 }
 
