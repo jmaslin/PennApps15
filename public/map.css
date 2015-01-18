@@ -1,11 +1,11 @@
-#map-canvas { 
+#map-canvas, #panorama { 
 	height: 100%; 
 	margin: 0; 
 	padding: 0;
-	margin-top: 3em;
+	/*margin-top: 3em;*/
 }
 
-#map-canvas img {
+#map-canvas img, #panorama img {
     max-width: none;
 }
 

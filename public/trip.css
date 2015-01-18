@@ -10,6 +10,10 @@ img {
 	vertical-align: middle;
 }
 
+#heading {
+	padding-top: 1em;
+}
+
 #top {
 	margin-bottom: 1em;
 	/*margin-left: 1em;*/
@@ -31,6 +35,10 @@ img {
 	/*border: 1px solid gray;*/
 	padding-right: 2em;
 	height: 5000%;
+
+	/*background-image: url("/public/img/ticks_@2X.png");*/
+	background-repeat: repeat-x repeat-y;
+
 }
 
 
@@ -51,7 +59,7 @@ img {
 }
 
 #tripMap {
-	margin-top: 3em;
+	/*margin-top: 3em;*/
 	/*position: fixed;*/
 	/*position: relative;*/
 		/*position: absolute;*/
