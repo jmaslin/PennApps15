@@ -1,6 +1,7 @@
 body {
 	font-size: 150%;
 	top: 0;
+	position: relative;
 	/*background-image: url("/public/grey_wash_wall_@2X.png");*/
 	/*background-repeat: repeat-y;*/
 }
@@ -29,6 +30,7 @@ img {
 #tripSide {
 	/*border: 1px solid gray;*/
 	padding-right: 2em;
+	height: 5000%;
 }
 
 
@@ -51,7 +53,9 @@ img {
 #tripMap {
 	margin-top: 3em;
 	/*position: fixed;*/
-	position: relative;
+	/*position: relative;*/
+		/*position: absolute;*/
+
 }
 
 .tripDay {
@@ -112,4 +116,46 @@ img {
 	cursor: default;
 	background-color: white;
 
+}
+
+/*
+ * SCROLALA
+ */
+
+ #scrollbox3 {
+    overflow: auto;
+    width: 400px;
+    height: 360px;
+    padding: 0 5px;
+    border: 1px solid #b7b7b7;
+}
+
+.track3 {
+    width: 10px;
+    background: rgba(0, 0, 0, 0);
+    margin-right: 2px;
+    border-radius: 10px;
+    -webkit-transition: background 250ms linear;
+    transition: background 250ms linear;
+}
+
+.track3:hover,
+.track3.dragging {
+    background: #d9d9d9; /* Browsers without rgba support */
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.handle3 {
+    width: 7px;
+    right: 0;
+    background: #999;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 7px;
+    -webkit-transition: width 250ms;
+    transition: width 250ms;
+}
+
+.track3:hover .handle3,
+.track3.dragging .handle3 {
+    width: 10px;
 }
