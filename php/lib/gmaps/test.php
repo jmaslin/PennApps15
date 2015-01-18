@@ -1,14 +1,12 @@
 <?
 require_once('gmaps.php');
-require_once('gplaces.php');
 
 $mapAPI = new gmaps();
-$mapPlacesAPI = new gplaces();
 
 $response = $mapAPI->getRouteFromLocations("Philadelphia","California");
-//echo var_dump($response);
+echo var_dump($response);
 
-
+/*
 $location = array(
 		'lat' => '51.503186',
 		'long' => '-0.126446'
@@ -27,5 +25,5 @@ $stepInt = $mapAPI->getLocationFromRouteTime($response,10000);
 $step = $response->routes[0]->legs[0]->steps[$stepInt-1];
 //echo var_dump($route->routes[0]->legs[0]);
 echo var_dump($mapAPI->decodePolylineToArray($step->polyline->points));
-
+*/
 ?>
