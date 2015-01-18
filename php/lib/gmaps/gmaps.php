@@ -37,12 +37,12 @@ class gmaps{
 			}
 		}
 		if($bestStep){
-			//velocity in whatever units/sec
-			$appVel = ($bestStep->distance->value/$bestStep->duration->value);
+			$offset = 0;
+			while(){
+
+			}
+			$stopRatio = (()/$bestStep->duration->value);
 		}
-			
-
-
 	}
 
 
@@ -61,27 +61,24 @@ class gmaps{
 				$b = ord(substr($encoded, $index++)) - 63;
 				$result |= ($b & 0x1f) << $shift;
 				$shift += 5;
-			}
-			while ($b >= 0x20);
+			} while ($b >= 0x20);
 
 			$dlat = (($result & 1) ? ~($result >> 1) : ($result >> 1));
 			$lat += $dlat;
-
 			$shift = 0;
 			$result = 0;
+			
 			do{
 				$b = ord(substr($encoded, $index++)) - 63;
 				$result |= ($b & 0x1f) << $shift;
 				$shift += 5;
-			}
-			while ($b >= 0x20);
+			} while ($b >= 0x20);
 
 			$dlng = (($result & 1) ? ~($result >> 1) : ($result >> 1));
 			$lng += $dlng;
 
 			$points[] = array($lat * 1e-5, $lng * 1e-5);
 		}
-		
 		return $points;
 	}
 }
