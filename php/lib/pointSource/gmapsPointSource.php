@@ -1,7 +1,0 @@
-<?
-class gmapsPointSource extends pointSource{
-
-
-
-}
-?>
