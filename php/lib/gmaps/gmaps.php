@@ -1,4 +1,4 @@
-<?
+<?php
 require_once(dirname(__FILE__).'/../basicHTTPRequest.php');
 
 class gmaps{
@@ -16,7 +16,7 @@ class gmaps{
 	public function getRouteFromLocations($from,$to){
 		$response = false;
 		try{
-			$response = json_decode(request("https://maps.googleapis.com/maps/api/directions/json?origin=$from&destination=$to&key=$API_KEY"));
+			$response = json_decode(request("https://maps.googleapis.com/maps/api/directions/json?origin=$from&destination=$to&key=$this->API_KEY"));
 		}
 		catch(Exception $e){}
 		return $response;

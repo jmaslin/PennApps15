@@ -463,11 +463,10 @@
 
 		$.ajax({
 			dataType: 'json',
-			// url: '../php/point/getPointsList.php',
-			url: '/public/testdata.json',
+			url: '/php/point/getPointsList.php',
 			data: 'to='+toLoc+'&fromLoc='+fromLoc, 
 			success: function(data) {
-				var eventArray = data;
+				var eventArray = JSON.parse(data);
 				$.each(eventArray, function(eventIndex, eventData) {
 				
 					var date = moment(eventData.time.arrive, 'X').format("dddd, MMMM DDDo, YYYY");

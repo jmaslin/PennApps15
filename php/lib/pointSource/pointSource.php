@@ -1,4 +1,4 @@
-<?
+<?php
 class pointSource{
 	//this is an abstract 
 	public function getPoints($pointSize,$categories){

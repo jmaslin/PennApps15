@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('gmaps.php');
 
 $mapAPI = new gmaps();

@@ -1,4 +1,4 @@
-<?
+<?php
 function request($url){
 	$url = $url;
 	$response = false;

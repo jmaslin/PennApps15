@@ -1,7 +1,7 @@
-<?
+<?php
 //this is the file that ties it all together. Requests are made based on starting and ending points, and a list of points are returned.
 require_once(dirname(__FILE__).'/../lib/gmaps/gmaps.php');
-require_once(dirname(__FILE__).'/../lib/pointsource/gplacesPointSource.php');
+require_once(dirname(__FILE__).'/../lib/pointSource/gplacesPointSource.php');
 
 //location
 $from = isset($_REQUEST['from']) ? $_REQUEST['from'] : "Philadelphia,PA";
